@@ -8,3 +8,19 @@ before_install:
 
 script:
   - docker run -e CI=true jasonliuhe/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  # DockerR-env.eba-gxhpthee.us-east-2.elasticbeanstalk.com
+  region: "us-east-2"
+  app: "docker-r"
+  env: "DockerR-env"
+  bucket_name: "elasticbeanstalk-us-east-2-411823241166"
+  # same as app name
+  bucket_path: "docker-r"
+  on:
+    branch: master
+
+  # $AWS_ACCESS_KEY and $AWS_SECRET_KEY is generate by AWS IAM and store in Travis CI
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
